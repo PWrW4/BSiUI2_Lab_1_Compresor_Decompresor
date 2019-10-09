@@ -28,6 +28,7 @@ f.close()
 
 f = open(file_in_name, 'r')
 
+# dictionary length
 x = dict_array.count(1)
 
 # number of bits that represent one dictionary char
@@ -41,9 +42,9 @@ if x >= 128:
 
 chars_in_int_array = np.where(np.array(dict_array) == 1)[0]
 
-o.write(bytes([ord(str(x))]))
+o.write(bytes([x]))
 
-o.write(bytes(chars_in_int_array))
+o.write(bytes(list(chars_in_int_array)))
 
 # rest of bits at the end of file
 R = (8 - (3 + (k * N)) % 8) % 8
@@ -55,10 +56,16 @@ while True:
     piece = f.read(1)
     if not piece:
         break
-    if len(str_to_write) == 8:
-        o.write()
-        str_to_write = ''
+    if len(str_to_write) >= 8:
+        o.write(bytes([int(str_to_write[:8], 2)]))
+        str_to_write = str_to_write[8:]
+    piece_ascii = ord(piece)
+    piece_order = list(chars_in_int_array).index(piece_ascii)
+    str_to_write += bin(piece_order)[2:]
 
+while len(str_to_write) > 0:
+    o.write(bytes([int(str_to_write[:8], 2)]))
+    str_to_write = str_to_write[8:]
 
 f.close()
 o.close()

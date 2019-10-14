@@ -28,6 +28,8 @@ bytes_from_file_buffer = format(int.from_bytes(in_file.read(1), byteorder='big')
 # rest bytes at the end of file (not information, just filling to 8 bits in compression)
 R = int(bytes_from_file_buffer[:3], 2)
 
+print('Additional bits: ' + str(R))
+
 bytes_from_file_buffer = bytes_from_file_buffer[3:]
 
 while True:

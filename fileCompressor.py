@@ -2,8 +2,8 @@ import numpy as np
 import sys
 import math
 
-file_in_name = "4char_100MB.dat"
-file_out_name = "4char_100MB.wwc"
+file_in_name = "test"  # test is from laboratory example
+file_out_name = "test.wca"  # Wojciech compression algorithm xD
 
 f = open(file_in_name, 'rb')
 o = open(file_out_name, 'wb')
@@ -49,8 +49,12 @@ o.write(bytes(list(chars_in_int_array)))
 # rest of bits at the end of file
 R = (8 - (3 + (k * N)) % 8) % 8
 
-str_to_write = str(bin(R)[2:])
+print("Liczba znaków: " + str(x))
+print("Liczba potrzebnych bitów na jeden znak: " + str(N))
+print("Długość tekstu: " + str(k))
+print("Nadmiarowe bity: " + str(R))
 
+str_to_write = format(R, '03b')
 
 while True:
     piece = f.read(1)
@@ -61,9 +65,12 @@ while True:
         str_to_write = str_to_write[8:]
     piece_ascii = ord(piece)
     piece_order = list(chars_in_int_array).index(piece_ascii)
-    str_to_write += bin(piece_order)[2:]
+    str_to_write += format(piece_order, '02b')
 
-while len(str_to_write) > 0:
+if len(str_to_write) != 0:
+    while len(str_to_write) != 8:
+        str_to_write += '1'
+
     o.write(bytes([int(str_to_write[:8], 2)]))
     str_to_write = str_to_write[8:]
 

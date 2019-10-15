@@ -3,7 +3,7 @@ import sys
 import math
 
 file_in_name = 'test'  # test is from laboratory example
-file_out_name = 'test.wca'  # Wojciech compression algorithm xD
+file_out_name = file_in_name + '.wca'  # Wojciech compression algorithm xD
 
 in_file = open(file_in_name, 'rb')
 out_file = open(file_out_name, 'wb')

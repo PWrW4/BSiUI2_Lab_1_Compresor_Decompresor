@@ -65,7 +65,7 @@ while True:
         str_to_write = str_to_write[8:]
     piece_ascii = ord(piece)
     piece_order = list(chars_in_int_array).index(piece_ascii)
-    str_to_write += format(piece_order, '02b')
+    str_to_write += format(piece_order, '0' + str(N) + 'b')
 
 if len(str_to_write) != 0:
     while len(str_to_write) % 8 != 0:

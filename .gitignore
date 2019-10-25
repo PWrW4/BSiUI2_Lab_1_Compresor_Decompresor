@@ -48,6 +48,11 @@ cmake-build-*/
 # File-based project format
 *.iws
 
+.idea/
+./*.dat
+./*.wca
+./*_DeCompressed
+
 # IntelliJ
 out/
 
